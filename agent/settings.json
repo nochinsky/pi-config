@@ -1,0 +1,20 @@
+{
+  "defaultProvider": "openai",
+  "defaultModel": "gpt-6-luna",
+  "enabledModels": [
+    "openai/gpt-6-astra",
+    "openai/gpt-6-luna",
+    "openai/gpt-6.1-sol"
+  ],
+  "defaultThinkingLevel": "high",
+  "packages": [
+    "npm:pi-web-access@0.38.0",
+    "npm:pi-questions@0.3.4"
+  ],
+  "theme": "minimal-dark",
+  "quietStartup": "header",
+  "hideThinkingBlock": true,
+  "terminal": {
+    "trueColor": true
+  }
+}
