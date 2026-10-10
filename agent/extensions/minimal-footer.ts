@@ -30,35 +30,41 @@ export default function minimalFooter(pi: ExtensionAPI) {
 				dispose: unsubscribe,
 				invalidate() {},
 				render(width: number): string[] {
-				if (width <= 0) return [];
-
-				const branch = footerData.getGitBranch();
-				const left = displayPath(ctx.cwd) + (branch ? ` · ${singleLine(branch)}` : "");
-				const model = ctx.model;
-				const modelText = singleLine(model?.id ?? "no model") +
-					(model?.reasoning ? ` · ${pi.getThinkingLevel()}` : "");
-				const percent = ctx.getContextUsage()?.percent;
-				const known = typeof percent === "number" && Number.isFinite(percent);
-				const contextText = known ? `ctx ${Math.round(percent)}%` : "ctx ?";
-				const contextColor = known && percent >= 90 ? "error" :
-					known && percent >= 70 ? "warning" : "muted";
-
-				// On narrow terminals prioritize context, then model, then location.
-				if (width <= visibleWidth(contextText)) {
-					return [theme.fg(contextColor, truncateToWidth(contextText, width))];
-				}
-				const separator = " · ";
-				const modelBudget = width - visibleWidth(contextText) - visibleWidth(separator);
-				const fittedModel = modelBudget > 0 ? truncateToWidth(modelText, modelBudget) : "";
-				const right = (fittedModel ? theme.fg("muted", fittedModel + separator) : "") +
-					theme.fg(contextColor, contextText);
-				const leftBudget = width - visibleWidth(right) - 3;
-				if (leftBudget < 1) return [right];
-
-				const fittedLeft = theme.fg("dim", truncateToWidth(left, leftBudget));
-				const gap = " ".repeat(width - visibleWidth(fittedLeft) - visibleWidth(right));
-				return [fittedLeft + gap + right];
-			},
+					if (width <= 0) return [];
+					const inset = width >= 40 ? " " : "";
+					const available = width - inset.length * 2;
+					const frame = (text: string) => theme.bg("toolSuccessBg",
+						inset + text + " ".repeat(Math.max(0, available - visibleWidth(text))) + inset);
+					const separator = theme.fg("dim", "  ·  ");
+					const branch = footerData.getGitBranch();
+					const left = theme.fg("muted", displayPath(ctx.cwd)) +
+						(branch ? separator + theme.fg("accent", singleLine(branch)) : "");
+					const model = ctx.model;
+					const modelText = theme.fg("text", singleLine(model?.id ?? "no model")) +
+						(model?.reasoning ? theme.fg("dim", ` · ${singleLine(pi.getThinkingLevel())}`) : "");
+					const percent = ctx.getContextUsage()?.percent;
+					const known = typeof percent === "number" && Number.isFinite(percent);
+					const contextColor = known && percent >= 90 ? "error" :
+						known && percent >= 70 ? "warning" : "accent";
+					const contextText = known ? `ctx ${Math.round(percent)}%` : "ctx ?";
+					let context = theme.fg(contextColor, contextText);
+					// A five-cell meter only appears when the terminal has room for it.
+					if (known && available >= 100) {
+						const filled = Math.min(5, Math.max(0, Math.round(percent / 20)));
+						context = theme.fg("dim", "ctx ") + theme.fg(contextColor, "━".repeat(filled)) +
+							theme.fg("dim", "─".repeat(5 - filled)) + theme.fg(contextColor, ` ${Math.round(percent)}%`);
+					}
+					// On narrow terminals prioritize context, then model, then location.
+					if (available <= visibleWidth(context)) return [frame(truncateToWidth(context, available))];
+					const modelBudget = available - visibleWidth(context) - visibleWidth(separator);
+					const fittedModel = modelBudget > 0 ? truncateToWidth(modelText, modelBudget) : "";
+					const right = (fittedModel ? fittedModel + separator : "") + context;
+					const leftBudget = available - visibleWidth(right) - 3;
+					if (leftBudget < 1) return [frame(right)];
+					const fittedLeft = truncateToWidth(left, leftBudget);
+					const gap = " ".repeat(available - visibleWidth(fittedLeft) - visibleWidth(right));
+					return [frame(fittedLeft + gap + right)];
+				},
 			};
 		});
 	}
