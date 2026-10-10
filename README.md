@@ -4,11 +4,11 @@ A portable, curated snapshot of my personal [Pi coding agent](https://github.com
 
 ## What's here
 
-- `agent/settings.json` — OpenAI model defaults, a small model allowlist, high thinking, and startup/UI preferences. Pi packages are pinned to the versions currently in use.
+- `agent/settings.json` — OpenAI model defaults, a small model allowlist, high thinking, and startup/UI preferences. Pi package references for web access and questions are unpinned, matching the live setup.
 - `agent/web-search.json` — web-search provider preference.
 - `agent/extensions/minimal-footer.ts` — compact footer showing location, branch, model, and context usage; toggle it with `/minimal-footer`.
 - `agent/themes/minimal-dark.json` — muted dark theme.
-- `agent/npm/package.json` and `package-lock.json` — exact package dependency versions.
+- `agent/npm/package.json` and `package-lock.json` — npm dependency ranges and the exact resolved dependency tree.
 
 ## Install
 
@@ -28,4 +28,4 @@ Start Pi and use `/login` to authenticate on that machine. Authentication is not
 
 This repo intentionally contains only the six curated config/dependency files. Do **not** copy or commit the full `~/.pi/agent` directory: it can contain credentials, machine identity, session transcripts, trust decisions, caches, installed packages, and Pi binaries. Session files may include prompts, source code, command output, or exposed credentials.
 
-The footer extension and third-party Pi packages execute with Pi's user permissions. Review package updates before changing their pinned versions. To update this backup from a machine, copy only the files listed above and inspect the diff before pushing.
+The footer extension and third-party Pi packages execute with Pi's user permissions. The Pi package references are unpinned, so updates may install newer compatible versions; review package changes before accepting them. The npm lockfile records the exact resolved dependency tree. To update this backup from a machine, copy only the files listed above and inspect the diff before pushing.

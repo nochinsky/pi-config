@@ -8,8 +8,8 @@
   ],
   "defaultThinkingLevel": "high",
   "packages": [
-    "npm:pi-web-access@0.38.0",
-    "npm:pi-questions@0.3.4"
+    "npm:pi-web-access",
+    "npm:pi-questions"
   ],
   "theme": "minimal-dark",
   "quietStartup": "header",
