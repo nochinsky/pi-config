@@ -8,6 +8,8 @@ My personal [Pi coding agent](https://github.com/earendil-works/pi) setup: a min
 - **Minimal UI** — muted dark theme, quiet startup, and hidden thinking blocks.
 - **Compact tool rows** — matching Read/Bash/Edit/Write headers, subtle backgrounds, and status summaries. Expand with `Ctrl+O` for full output and diffs.
 - **Compact footer** — location, branch, model, and a responsive context meter. Toggle with `/minimal-footer`.
+- **Rounded input** — subtle borders with native editing, shortcuts, working status, and autocomplete.
+- **Startup card** — project, model, and shortcut hints for fresh sessions. Preview with `/startup-card`; hide with `/startup-card hide`.
 - **Tools** — [`pi-web-access`](https://www.npmjs.com/package/pi-web-access) and [`pi-questions`](https://www.npmjs.com/package/pi-questions).
 
 Config files live in `agent/`, alongside the UI extensions, theme, and npm lockfile. The UI extensions are dependency-free and change presentation only—not tool execution or model-facing output.
