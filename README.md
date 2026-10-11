@@ -22,7 +22,10 @@ if [ -d "$HOME/.pi/agent" ]; then
 fi
 mkdir -p "$HOME/.pi/agent"
 cp -a agent/. "$HOME/.pi/agent/"
+(cd "$HOME/.pi/agent/npm" && npm ci)
 ```
+
+The included `npm/.npmrc` disables peer dependency installation, matching Pi’s package installer and the lockfile. Pi supplies its APIs when loading extensions.
 
 Start Pi and use `/login` to authenticate. Existing credentials and sessions are left untouched.
 
