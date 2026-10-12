@@ -4,6 +4,7 @@ My personal [Pi coding agent](https://github.com/earendil-works/pi) setup: a min
 
 ## What's included
 
+- **Agent instructions** — global working preferences in `agent/AGENTS.md`: end-to-end execution, focused changes, honest verification, research, and explicit safety boundaries.
 - **Model defaults** — OpenAI models with high thinking.
 - **Minimal UI** — muted dark theme, quiet startup, and hidden thinking blocks.
 - **Compact tool rows** — matching Read/Bash/Edit/Write headers, subtle backgrounds, and status summaries. Expand with `Ctrl+O` for full output and diffs.
