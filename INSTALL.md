@@ -26,9 +26,10 @@ merging it manually. Read it completely before changing anything.
 ## 2. Inspect prerequisites and the target
 
 - Check the OS, shell, `pi --version`, `node --version`, and npm availability.
-  This configuration was checked with Pi 1.2.0 and Node.js 24.21.0. Pi 1.2.0
-  requires Node.js 22.19 or newer. For other Pi versions, check their installed
-  help/docs before assuming identical commands or settings.
+  This config follows current Pi and extension releases rather than a fixed Pi
+  version. Check the installed Pi help/docs and current package requirements for
+  supported Node.js versions, commands, and settings. If an older Pi is
+  incompatible, explain the conflict and ask before upgrading it.
 - If Pi or a supported Node.js is missing, explain the prerequisite and ask
   before installing system-wide tools. Follow Pi's
   [official installation instructions](https://pi.dev); do not silently replace
@@ -127,16 +128,20 @@ unrelated package entries. Never clear entire extensions or themes directories.
 
 ## 5. Install dependencies
 
-For a fresh setup, copy the repo's npm manifest, lockfile, and `.npmrc` into the
-agent directory's `npm/` folder. For an existing setup, merge the five direct
-npm dependencies from `agent/npm/package.json`, preserve unrelated dependencies,
-and retain the existing lockfile for npm/Pi to reconcile. Do not copy the repo's
-lockfile over a customized dependency tree.
+For a fresh setup, copy the repo's npm manifest and `.npmrc` into the agent
+directory's `npm/` folder, without seeding it with the repo's snapshot lockfile.
+For an existing setup, merge the five direct npm dependencies from
+`agent/npm/package.json`, preserve unrelated dependencies, and retain the existing
+lockfile for npm/Pi to reconcile. Do not copy the repo's lockfile over a customized
+dependency tree.
 
-Retain the repo's `legacy-peer-deps=true` npm setting and
-`@modelcontextprotocol/sdk` compatibility override from `package.json`, merging
-without discarding other npm settings or overrides. Ask if an existing override
-conflicts. Never copy `node_modules` from the checkout.
+Retain the repo's `legacy-peer-deps=true` npm setting without discarding other
+npm settings. Extensions manage their own internal dependencies; do not add a
+root `@modelcontextprotocol/sdk` override. If an existing SDK override came from
+an older version of this repo, back it up and remove it. Preserve unrelated
+overrides and ask about customized constraints. The SDK may remain installed as
+an extension dependency; do not uninstall it from that dependency tree. Never
+copy `node_modules` from the checkout.
 
 Install each of the five sources declared in `agent/settings.json` using Pi's
 package manager, for example:
@@ -151,10 +156,17 @@ repo lockfile. Check the resulting Pi declarations, npm manifest, and lockfile;
 Pi/npm may rewrite dependency ranges, but Pi's package sources must stay
 unpinned. Do not run a blanket update of unrelated user packages.
 
-For a reproducible fresh installation instead, `npm ci --ignore-scripts` in the
-agent directory's `npm/` installs the repo's recorded snapshot. This is the
-[README's manual path](README.md#manual-installation). Do not use `npm ci` over a
-customized existing tree without review: it replaces `node_modules`.
+On a fresh setup with only this config's five sources declared,
+`pi update --extensions` also installs their latest releases; this is the
+[README's manual path](README.md#manual-installation). On an existing setup,
+install or update the requested sources individually to avoid updating unrelated
+user packages.
+
+The repo lockfile is a recorded snapshot, not the normal installation policy.
+Only if the user explicitly requests that snapshot, copy it with the matching
+manifest and `.npmrc` into a fresh `npm/` directory and run
+`npm ci --ignore-scripts`. Do not use `npm ci` over a customized existing tree
+without review: it replaces `node_modules`.
 
 ## 6. Verify and hand back
 
@@ -176,4 +188,7 @@ customized existing tree without review: it replaces `node_modules`.
 
 Installing this config does not link it for automatic synchronization with this
 repo. Future changes can be applied with this same inspect/backup/merge process.
-Extension updates are explicit via `pi update --extensions`, not unattended.
+Follow Pi's update notifications: `pi update` updates Pi itself,
+`pi update --extensions` updates extensions, and `pi update --all` updates both.
+If Pi is managed by another package manager, use that manager for Pi itself.
+Updates are explicit, not unattended; restart Pi afterward.

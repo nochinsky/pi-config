@@ -2,7 +2,8 @@
 
 My personal [Pi](https://github.com/earendil-works/pi) setup: stock dark UI,
 OpenAI models, web access, interactive questions, task tracking, side questions,
-and on-demand subagents. Tested with Pi **1.2.0**.
+and on-demand subagents. This config follows current Pi and extension releases,
+not a fixed Pi version.
 
 ## Install with your coding agent
 
@@ -77,31 +78,39 @@ merged deliberately rather than silently replaced.
 
 ## Updates
 
-All five extension sources are **unpinned**. Update them when you want newer
-releases:
+All five extension sources are **unpinned** so installs and updates use the
+latest published releases. Follow Pi's update notifications and run the command
+for what you want to update:
 
 ```bash
-pi update --extensions
+pi update                 # Pi itself
+pi update --extensions    # Extensions only
+pi update --all           # Pi and extensions together
 ```
 
-This is update-on-command, not a background schedule. The npm lockfile records a
-reproducible dependency snapshot for `npm ci`; it does not pin the package
-sources in Pi settings. Restart Pi after installing or updating packages.
+If another package manager manages Pi, update Pi through that manager instead;
+Pi can still update its extensions. Restart Pi after installing or updating.
+There is no background updater or update-on-launch wrapper in this config.
+
+The npm lockfile is a recorded dependency snapshot, not the update policy or a
+requirement to keep those versions. Normal installation uses Pi's package
+manager, not `npm ci`. Extensions manage their own internal dependencies; this
+config does not force an MCP SDK version.
 
 Editing this repo does not automatically sync an existing Pi installation.
 Ask your agent to apply the updated config using [INSTALL.md](INSTALL.md).
 
 ## Manual installation
 
-Install Pi first using its [official instructions](https://pi.dev), then clone
-this repo. Pi 1.2.0 requires Node.js **22.19+**; this config was checked locally
-with Node.js 24.21.0.
+Install the current Pi release using its [official instructions](https://pi.dev),
+then clone this repo. Use a Node.js version supported by that Pi release and the
+extensions; check their current requirements rather than a fixed version here.
 
 ### Fresh setup
 
 From the repository root, run the following POSIX shell snippet. It **refuses to
-overwrite an existing agent directory**. It installs the lockfile snapshot; run
-`pi update --extensions` afterward if you want newer extension versions.
+overwrite an existing agent directory**. It installs the latest releases of the
+configured extensions through Pi's package manager.
 
 ```bash
 (
@@ -114,10 +123,11 @@ overwrite an existing agent directory**. It installs the lockfile snapshot; run
   fi
   mkdir -p "$agent_dir/npm"
   cp agent/settings.json agent/AGENTS.md agent/web-search.json "$agent_dir/"
-  cp agent/npm/package.json agent/npm/package-lock.json agent/npm/.npmrc "$agent_dir/npm/"
-  (cd "$agent_dir/npm" && npm ci --ignore-scripts)
+  cp agent/npm/package.json agent/npm/.npmrc "$agent_dir/npm/"
   export PI_CODING_AGENT_DIR="$agent_dir"
+  pi update --extensions
   pi list
+  (cd "$agent_dir/npm" && npm ls --depth=0)
 )
 ```
 
@@ -141,7 +151,7 @@ only those legacy resources if present; do not delete unrelated extensions.
 - [agent/settings.json](agent/settings.json) — portable preferences and packages
 - [agent/AGENTS.md](agent/AGENTS.md) — instructions for the installed Pi agent
 - [agent/web-search.json](agent/web-search.json) — OpenAI web-search defaults
-- [agent/npm/](agent/npm/) — npm dependencies, compatibility override, and lockfile
+- [agent/npm/](agent/npm/) — unpinned npm dependencies, peer-install setting, and snapshot lockfile
 - [INSTALL.md](INSTALL.md) — installation instructions for agents and humans
 
 > Extensions run with your user permissions. Review the config and packages
