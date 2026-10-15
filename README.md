@@ -24,8 +24,8 @@ works as a manual checklist.
 - Built-in dark theme, native tool rendering and status bar, and quiet startup.
 - Visible thinking, OpenAI models with high/max thinking, and OpenAI web search.
 - Project trust prompts enabled and install telemetry disabled.
-- [Working preferences](agent/AGENTS.md) for inspecting, completing, and verifying
-  requested work while preserving unrelated changes.
+- [Communication preferences](agent/AGENTS.md) for direct, concise answers,
+  clear recommendations, and honest uncertainty.
 
 See [settings.json](agent/settings.json) for the exact defaults. Model choices
 are personal preferences; choose alternatives if your account does not support
