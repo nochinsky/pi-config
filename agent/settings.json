@@ -9,12 +9,29 @@
   "defaultThinkingLevel": "high",
   "packages": [
     "npm:pi-web-access",
-    "npm:pi-questions"
+    "npm:@juicesharp/rpiv-ask-user-question",
+    "npm:@juicesharp/rpiv-todo",
+    "npm:@juicesharp/rpiv-btw",
+    "npm:pi-subagents"
   ],
-  "theme": "minimal-dark",
-  "quietStartup": "header",
-  "hideThinkingBlock": true,
+  "theme": "dark",
+  "quietStartup": true,
+  "hideThinkingBlock": false,
   "terminal": {
-    "trueColor": true
-  }
+    "trueColor": true,
+    "showTerminalProgress": false
+  },
+  "modelThinkingLevels": {
+    "openai/gpt-6-luna": "max",
+    "openai/gpt-6.1-sol": "high",
+    "openai/gpt-6-astra": "high"
+  },
+  "warnings": {
+    "anthropicExtraUsage": true
+  },
+  "treeFilterMode": "default",
+  "defaultProjectTrust": "ask",
+  "enableInstallTelemetry": false,
+  "transport": "auto",
+  "showHardwareCursor": false
 }

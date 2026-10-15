@@ -2,8 +2,11 @@
   "name": "pi-extensions",
   "private": true,
   "dependencies": {
-    "pi-questions": "^0.3.4",
-    "pi-web-access": "^0.38.0"
+    "@juicesharp/rpiv-ask-user-question": "*",
+    "@juicesharp/rpiv-btw": "*",
+    "@juicesharp/rpiv-todo": "*",
+    "pi-subagents": "*",
+    "pi-web-access": "*"
   },
   "overrides": {
     "@modelcontextprotocol/sdk": "1.32.1"
