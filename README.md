@@ -1,7 +1,7 @@
 # pi-config
 
 My personal [Pi](https://pi.dev) setup: stock dark UI, OpenAI models, and a small
-set of extensions for research, questions, task tracking, and on-demand subagents.
+set of extensions for research, questions, task tracking, and side questions.
 
 ## Install
 
@@ -39,10 +39,9 @@ them. Authenticate locally through Pi's `/login`—no credentials belong here.
 | [rpiv-ask-user-question](https://www.npmjs.com/package/@juicesharp/rpiv-ask-user-question) | Interactive questions and previews |
 | [rpiv-todo](https://www.npmjs.com/package/@juicesharp/rpiv-todo) | Task tracking and `/todos` |
 | [rpiv-btw](https://www.npmjs.com/package/@juicesharp/rpiv-btw) | `/btw` side questions |
-| [pi-subagents](https://www.npmjs.com/package/pi-subagents) | Explicitly requested delegation |
 
-Extensions run with your user permissions. Side questions and subagents make
-additional model calls.
+Extensions run with your user permissions. Side questions make additional model
+calls.
 
 ## Updates
 

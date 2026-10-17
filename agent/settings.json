@@ -11,8 +11,7 @@
     "npm:pi-web-access",
     "npm:@juicesharp/rpiv-ask-user-question",
     "npm:@juicesharp/rpiv-todo",
-    "npm:@juicesharp/rpiv-btw",
-    "npm:pi-subagents"
+    "npm:@juicesharp/rpiv-btw"
   ],
   "theme": "dark",
   "quietStartup": true,
