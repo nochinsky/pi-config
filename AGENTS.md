@@ -1,14 +1,15 @@
 # Repository guidance
 
-This repository distributes a personal Pi configuration. `agent/AGENTS.md` is
-an installable payload for Pi, not the installation guide for this checkout.
+This repo distributes a personal Pi configuration. `agent/AGENTS.md` is the
+installable payload, not guidance for editing this checkout.
 
-- When asked to install or apply this config, read `README.md` and `INSTALL.md`
-  completely and follow the inspect/backup/merge/verify procedure there.
-- A clone or a repository-editing task alone is not permission to change the
-  user's active Pi setup. Install only when the user requests it.
-- Preserve existing local changes. Keep configuration portable; never copy a
-  whole live agent directory, credentials, sessions, device IDs, or backups here.
-- When editing configuration, update relevant documentation and verify JSON,
-  package/lockfile consistency, and `git diff --check`.
-- Do not commit or push unless the user requests it.
+- Read `README.md` completely before installing. Use its warn/confirm/backup/
+  replace/verify procedure: clean replacement, never merge old plugins or settings.
+- Require explicit confirmation after explaining what will be removed. Preserve
+  credentials, session history, and Pi's own runtime; verify a private backup first.
+- Cloning or editing this repo does not authorize changing the active Pi setup.
+- Preserve checkout changes. Never commit credentials, sessions, backups, machine
+  paths, installed dependencies, or generated lockfiles.
+- Keep docs in `README.md`; avoid duplicate guides. Run
+  `node scripts/check-config.mjs` and `git diff --check` after edits.
+- Do not commit or push unless requested.
