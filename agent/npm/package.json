@@ -2,9 +2,13 @@
   "name": "pi-extensions",
   "private": true,
   "dependencies": {
+    "@injaneity/pi-computer-use": "*",
     "@juicesharp/rpiv-ask-user-question": "*",
     "@juicesharp/rpiv-btw": "*",
     "@juicesharp/rpiv-todo": "*",
     "pi-web-access": "*"
+  },
+  "allowScripts": {
+    "@injaneity/pi-computer-use": true
   }
 }

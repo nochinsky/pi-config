@@ -12,7 +12,8 @@
     "npm:pi-web-access",
     "npm:@juicesharp/rpiv-ask-user-question",
     "npm:@juicesharp/rpiv-todo",
-    "npm:@juicesharp/rpiv-btw"
+    "npm:@juicesharp/rpiv-btw",
+    "npm:@injaneity/pi-computer-use"
   ],
   "theme": "dark",
   "quietStartup": true,
